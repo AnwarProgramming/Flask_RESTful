@@ -12,6 +12,8 @@ user_details = []
 class HelloWorld(Resource):
     def get(self, username=None):
         if username is None:
+            if not user_details:
+                return make_response(jsonify({"message": "No users found"}), 404)
             return make_response(jsonify(user_details), 200)
         for user in user_details:
             if user['username'] == username:
